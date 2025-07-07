@@ -44,9 +44,15 @@ public class VentanaPrincipal extends JFrame {
 				// TODO Auto-generated method stub
 				System.out.println("'Abrir carpeta' pulsado");
 				try {
-					venMid.folderMain=venMid.abrirFolder();
+					venMid.folderMain=venMid.abrirFolder(venMid.folderMain);
+					//Este metodo recorre la carpeta que se selecciono y te dice 
+					//si esta duplicada o no.
 					if(venMid.recorrerCarpeta(venMid.folderMain)){
-						venIzq.actualizarLista(venMid.folderMain,venMid.archivosMain);
+						venIzq.listaArchivosMain.removeAll();
+						venIzq.listaArchivosMain.setModel(venIzq.actualizarLista(venMid.folderMain,venMid.archivosMain));
+						//mete el metodo de abajo arriba pendejo
+				        
+						//venIzq.actualizarLista(venMid.folderMain,venMid.archivosMain);
 					}
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
@@ -64,9 +70,12 @@ public class VentanaPrincipal extends JFrame {
 				// TODO Auto-generated method stub
 				System.out.println("'Abrir carpeta destino' pulsado");
 				try {
-					venMid.folderDestino=venMid.abrirFolder();
+					venMid.folderDestino=venMid.abrirFolder(venMid.folderDestino);
 					System.out.println("Folder de destino abierto: "+venMid.folderDestino);
-					venMid.recorrerCarpeta(venMid.folderDestino);
+					if(venMid.recorrerCarpeta(venMid.folderDestino)){
+						venIzq.listaArchivosDestino.removeAll();
+						venIzq.listaArchivosDestino.setModel(venIzq.actualizarLista(venMid.folderDestino,venMid.archivosDestino));
+					}
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();

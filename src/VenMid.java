@@ -24,7 +24,20 @@ public class VenMid extends JPanel {
  	File folderDestino;
     JButton btnAbrirCarpeta = new JButton("Abrir carpeta");
     JButton btnCarpetaDestino = new JButton("Carpeta Destino");
+    VenMidPanel1 panel1 = new VenMidPanel1();
+    VenMidPanel2 panel2 = new VenMidPanel2();
     
+	
+	public VenMid() {
+		// TODO Auto-generated constructor stub
+		setBackground(Color.magenta);
+		setLayout(new GridLayout(4,0,0,5));
+		add(btnAbrirCarpeta);
+		add(panel1);
+		add(panel2);
+		add(btnCarpetaDestino);
+		//addFuncion();
+	}
     
     //TODO: Que este metodo jale para ambos metodos
     //Nota, este metodo checara la carpeta actual, si existe la direccion te metera a
@@ -63,8 +76,16 @@ public class VenMid extends JPanel {
             // Using listFiles method we get all the files of a directory 
             // return type of listFiles is array
         }
-        else {System.out.println("No se selecciono archivo"); 
-        return null;}
+        else if(directorioActual!=null) {
+    		if (Files.exists(directorioActual.toPath())) {
+        		System.out.println("Abriendo folder guardado con anterioridad, "
+        				+ "no se abrio ninguno nuevo");
+        		return directorioActual;
+        	}
+    	}
+        
+        System.out.println("No se selecciono archivo"); 
+    	return null;
     }
     
     //TODO: Hacer que esto jale para ambos directorios (destino y carpeta original)
@@ -147,19 +168,4 @@ public class VenMid extends JPanel {
     	//o sea checar que ya se hayan grabado las lineas
     }
 	
-	
-	
-	
-	
-	
-	public VenMid() {
-		// TODO Auto-generated constructor stub
-		setBackground(Color.magenta);
-		setLayout(new GridLayout(4,0,0,5));
-		add(btnAbrirCarpeta);
-		add(new JButton("Botones"));
-		add(new JButton("Botones2"));
-		add(btnCarpetaDestino);
-		//addFuncion();
-	}
 }

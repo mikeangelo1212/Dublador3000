@@ -19,6 +19,8 @@ import javax.swing.JPanel;
 
 public class Dubladormain {
 	
+	//iconos de https://free-icons.github.io/free-icons/.
+	
 	// TODO Auto-generated method stub
 	
 	//declaracion de variables
@@ -36,57 +38,58 @@ public class Dubladormain {
 	
 	
 	//constructor de testing con valores default
-	//TODO crear constructor para la GUI
-	//TODO crear GUI.
 	//TODO crear espectrograma de archivo de audio
 	Dubladormain() throws UnsupportedAudioFileException, IOException, LineUnavailableException{
 		
-		//propiedades de archivo, que tipo de archivo es, cual agarrara como base y pa donde va
-		fileType = AudioFileFormat.Type.WAVE;
-		file = new File("D:\\Postal 2 En Latino\\Dialogos\\Originales\\DudeDialog\\dude_aahthatsthestuff.wav");
-		newFile= new File("D:\\Postal 2 En Latino\\Dialogos\\Doblados\\DudeDialog\\dude_aahthatsthestuff.wav");
-				
 		
-		//aqui decimos de donde sacara nuestro audio o propiedades, en este caso del archivo
-		audioInputStream = AudioSystem.getAudioInputStream(file);
-		format = audioInputStream.getFormat();
-		frames = audioInputStream.getFrameLength();
-		durationInSeconds = (frames+0.0) / format.getFrameRate(); 
-		miliseconds=(int)(durationInSeconds*1000);
+		String currentPath = new java.io.File(".").getCanonicalPath();
 		
-		
-		//ahora crearemos un archivo al parecer, un formato de audio.
-		//con los siguientes parametros
-		//AudioFormat(AudioFormat.Encoding encoding, float sampleRate, int sampleSizeInBits, int channels, int frameSize, float frameRate, boolean bigEndian)
-		newFormat = new AudioFormat(format.getEncoding(), 
-		format.getSampleRate(), format.getSampleSizeInBits(), 
-		format.getChannels(), format.getFrameSize(), 
-		format.getFrameRate(), format.isBigEndian());
-
-		//Ahora crearemos una variable que capturara nuestro input
-		//getTargetDataLine agarra el microfono por defecto de nuesto Sistema Operativo		
-		microphone = AudioSystem.getTargetDataLine(newFormat);
-		
-		//este hilo lo usaremos para parar la grabacion, se llamara justo despues de abrir el microfono
-		stopper = new Thread(new Runnable() {
-          public void run() {
-              try {
-                  Thread.sleep(miliseconds+100);
-              } catch (InterruptedException ex) {
-                  ex.printStackTrace();
-              }
-              finish();
-              try {
-					imprimirDatos(newFile.getPath());
-				} catch (UnsupportedAudioFileException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-          }
-      });
+//		//propiedades de archivo, que tipo de archivo es, cual agarrara como base y pa donde va
+//		fileType = AudioFileFormat.Type.WAVE;
+//		file = new File(currentPath);
+//		newFile= new File(currentPath);
+//				
+//		
+//		//aqui decimos de donde sacara nuestro audio o propiedades, en este caso del archivo
+//		audioInputStream = AudioSystem.getAudioInputStream(file);
+//		format = audioInputStream.getFormat();
+//		frames = audioInputStream.getFrameLength();
+//		durationInSeconds = (frames+0.0) / format.getFrameRate(); 
+//		miliseconds=(int)(durationInSeconds*1000);
+//		
+//		
+//		//ahora crearemos un archivo al parecer, un formato de audio.
+//		//con los siguientes parametros
+//		//AudioFormat(AudioFormat.Encoding encoding, float sampleRate, int sampleSizeInBits, int channels, int frameSize, float frameRate, boolean bigEndian)
+//		newFormat = new AudioFormat(format.getEncoding(), 
+//		format.getSampleRate(), format.getSampleSizeInBits(), 
+//		format.getChannels(), format.getFrameSize(), 
+//		format.getFrameRate(), format.isBigEndian());
+//
+//		//Ahora crearemos una variable que capturara nuestro input
+//		//getTargetDataLine agarra el microfono por defecto de nuesto Sistema Operativo		
+//		microphone = AudioSystem.getTargetDataLine(newFormat);
+//		
+//		//este hilo lo usaremos para parar la grabacion, se llamara justo despues de abrir el microfono
+//		stopper = new Thread(new Runnable() {
+//          public void run() {
+//              try {
+//                  Thread.sleep(miliseconds+100);
+//              } catch (InterruptedException ex) {
+//                  ex.printStackTrace();
+//              }
+//              finish();
+//              try {
+//					imprimirDatos(newFile.getPath());
+//				} catch (UnsupportedAudioFileException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				} catch (IOException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+//          }
+//      });
 
 	}
 	
@@ -197,7 +200,7 @@ public class Dubladormain {
 		final Dubladormain dublador = new Dubladormain();
 		VentanaPrincipal ventana = new VentanaPrincipal();
 		
-		ventana.setVisible(true);;
+		ventana.setVisible(true);
 		
 //		Thread stopper = new Thread(new Runnable() {
 //            public void run() {

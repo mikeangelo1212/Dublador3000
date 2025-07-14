@@ -24,8 +24,8 @@ public class VenMid extends JPanel {
  	File folderDestino;
     JButton btnAbrirCarpeta = new JButton("Abrir carpeta");
     JButton btnCarpetaDestino = new JButton("Carpeta Destino");
-    VenMidPanel1 panel1 = new VenMidPanel1();
-    VenMidPanel2 panel2 = new VenMidPanel2();
+    VenMidPanelMain panelMain = new VenMidPanelMain();
+    VenMidPanelDestino panelDestino = new VenMidPanelDestino();
     
 	
 	public VenMid() {
@@ -33,8 +33,8 @@ public class VenMid extends JPanel {
 		setBackground(Color.magenta);
 		setLayout(new GridLayout(4,0,0,5));
 		add(btnAbrirCarpeta);
-		add(panel1);
-		add(panel2);
+		add(panelMain);
+		add(panelDestino);
 		add(btnCarpetaDestino);
 		//addFuncion();
 	}

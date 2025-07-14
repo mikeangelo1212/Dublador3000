@@ -19,7 +19,7 @@ import javax.swing.JPanel;
 
 public class Dubladormain {
 	
-	//iconos de https://free-icons.github.io/free-icons/.
+	//iconos de https://github.com/prmack/16pxls
 	
 	// TODO Auto-generated method stub
 	

@@ -15,8 +15,10 @@ public class VentanaPrincipal extends JFrame {
 	VenIzq venIzq;
 	VenMid venMid;
 	VenDer venDer;
-	//TODO: Ponerle otro icono al programa
-	//Image icono="/img/Doge.jpg";
+	
+	MicList microfonos = new MicList();
+	
+	
 	
 	VentanaPrincipal(){
 		setTitle("Dublador 3000, a ver pa cuando lo acabas");
@@ -82,6 +84,48 @@ public class VentanaPrincipal extends JFrame {
 				}
 				
 				  //venIzq.actualizarLista(venMid.archivos,venMid.folderDir);
+			}
+		});
+		
+		
+		//Panel Principal
+		venMid.panelMain.btnReproducir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (!venMid.panelMain.reproduciendo) {
+					venMid.panelMain.Reproducir();
+				}
+				else {
+					venMid.panelMain.Pausa();
+				}
+			}
+		});
+		
+		venMid.panelMain.btnMicrofono.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				microfonos.listAvailableMicrophones();
+			}
+		});
+		
+		//Panel Destino
+		venMid.panelDestino.btnReproducir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (!venMid.panelDestino.reproduciendo) {
+					venMid.panelDestino.Reproducir();
+				}
+				else {
+					venMid.panelDestino.Pausa();
+				}
+			}
+		});
+		
+		venMid.panelDestino.btnGrabar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (!venMid.panelDestino.grabando) {
+					venMid.panelDestino.Grabar();
+				}
+				else {
+					venMid.panelDestino.PararGrabacion();
+				}
 			}
 		});
     }

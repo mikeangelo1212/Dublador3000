@@ -127,7 +127,7 @@ public class VenMid extends JPanel {
 //         == compara referencias (si son el mismo objeto).
 //        .equals() compara valores (si el contenido es igual).
     	  //preguntamos si ya existen las variables
-          if (this.folderMain!=null&&this.folderDestino!=null) {
+           if (this.folderMain!=null&&this.folderDestino!=null) {
         	  //luego preguntamos si estan duplicados
         	  //TODO: Checar porque vergas no jala a pesar de ser la misma carpeta
         	  if (this.folderMain.getAbsolutePath().equals(this.folderDestino.getAbsolutePath())) {

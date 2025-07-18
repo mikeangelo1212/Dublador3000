@@ -125,12 +125,6 @@ public class VenIzq extends JPanel {
 	        
 	    	
 	    }
-	 
-	 //TODO: Al parecer hay que reestructurar esto porque no puedo checar que valores
-	 //ya existen en la otra lista, como que habra que usar un diccionario (Map) de java
-	 //pa poder relacionar elementos que ya existan en el otro JList, puras mamadas, aunque ajaja
-	 //Se me acaba de ocurrir algo, en la clase de celdas custom le podemos mandar la lista
-	 //de nuestros elementos, eso hare, que puta hueva reestructurar todo alv.
 	 /**
 	  * Hacemos algo con la seleccion del item modelo que podemos meter al JList que se necesite
 	 * @param string 

@@ -71,6 +71,53 @@ public class VentanaPrincipal extends JFrame {
 
 	}
 	
+	/**
+	  * Renderiza de nuevo ambas listas, quita elementos y asigna modelos
+	  * @param xd sexo
+	  */
+	 void reRenderizarListas() {
+		 System.out.println("folderMain: " + venMid.folderMain);
+		 System.out.println("folderDestino: " + venMid.folderDestino);
+		 System.out.println("archivosMain: " + venMid.archivosMain);
+		 System.out.println("archivosDestino: " + venMid.archivosDestino);
+		 Boolean main =renderizarMain();
+		 Boolean destino = renderizarDestino();
+		 System.out.println("Renderizando listas...");
+		 if (main) {
+			 venIzq.listaArchivosMain.setModel(venIzq.actualizarLista(venMid.folderMain,venMid.archivosMain));
+		 }
+		 if (destino) {
+			 venIzq.listaArchivosDestino.setModel(venIzq.actualizarLista(venMid.folderDestino,venMid.archivosDestino));
+		 }
+	 }
+	 
+	 boolean renderizarMain() {
+		 System.out.println("Trabajando en carpeta principal...");
+		 if(venMid.recorrerCarpeta(venMid.folderMain)){
+				venIzq.listaArchivosMain.removeAll();
+				venIzq.miCeldasCustom.listaArchivosMain=venIzq.actualizarLista(venMid.folderMain,venMid.archivosMain);
+				System.out.println("Finalizando en carpeta principal...");
+				return true;
+			}
+		 else {
+			 System.out.println("=Carpeta principal no valida=");
+			 return false;
+		 }
+	 }
+	 
+	 boolean renderizarDestino() {
+		 System.out.println("Trabajando en carpeta destino...");
+		 if(venMid.recorrerCarpeta(venMid.folderDestino)){
+				venIzq.listaArchivosDestino.removeAll();
+				venIzq.miCeldasCustom.listaArchivosDestino=venIzq.actualizarLista(venMid.folderDestino,venMid.archivosDestino);
+				System.out.println("Finalizanco en carpeta destino...");
+				return true;
+			}
+		 else {
+			 System.out.println("=Carpeta destino no valida=");
+			 return false;
+		 }
+	 }
 	
 	//TODO: Hacer un metodo de rerenderizado para que cargue las dos listas con
 	//los cambios al cambiar de folder y saber si existe en ambas carpetas
@@ -84,17 +131,12 @@ public class VentanaPrincipal extends JFrame {
 				System.out.println("'Abrir carpeta' pulsado");
 				try {
 					venMid.folderMain=venMid.abrirFolder(venMid.folderMain);
+					System.out.println("Folder de principal abierto: "+venMid.folderMain);
 					//Este metodo recorre la carpeta que se selecciono y te dice 
 					//si esta duplicada o no.
-					if(venMid.recorrerCarpeta(venMid.folderMain)){
-						venIzq.listaArchivosMain.removeAll();
-						//controlamos las celdas desde fuera
-						venIzq.miCeldasCustom.listaArchivosDestino=venIzq.actualizarLista(venMid.folderMain,venMid.archivosMain);
-						venIzq.listaArchivosMain.setModel(venIzq.actualizarLista(venMid.folderMain,venMid.archivosMain));
-						//mete el metodo de abajo arriba pendejo
-				        
-						//venIzq.actualizarLista(venMid.folderMain,venMid.archivosMain);
-					}
+					
+					reRenderizarListas();
+					
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -113,10 +155,7 @@ public class VentanaPrincipal extends JFrame {
 				try {
 					venMid.folderDestino=venMid.abrirFolder(venMid.folderDestino);
 					System.out.println("Folder de destino abierto: "+venMid.folderDestino);
-					if(venMid.recorrerCarpeta(venMid.folderDestino)){
-						venIzq.listaArchivosDestino.removeAll();
-						venIzq.listaArchivosDestino.setModel(venIzq.actualizarLista(venMid.folderDestino,venMid.archivosDestino));
-					}
+					reRenderizarListas();
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();

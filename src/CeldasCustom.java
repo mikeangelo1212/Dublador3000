@@ -35,7 +35,7 @@ public class CeldasCustom extends JLabel implements ListCellRenderer<String> {
  
  
     	setText(elemento);
-    	if(!listaArchivosDestino.contains(elemento)&&listaArchivosMain.contains(elemento)) {
+    	if(listaArchivosDestino.contains(elemento)&&listaArchivosMain.contains(elemento)) {
     		if (isSelected) {
                 setBackground(Color.GREEN);
                 setForeground(Color.BLACK);

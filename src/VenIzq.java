@@ -22,11 +22,14 @@ import java.awt.event.ActionListener;
 
 public class VenIzq extends JPanel {
 	
-    //TODO Agregar otro JList para la carpeta destino
     public JList<String> listaArchivosMain = new JList<String>();
     
     public JList<String> listaArchivosDestino = new JList<String>();
     
+  //controlamos las celdas desde fuera
+  //como estas Jlist referencian el objeto en si le puedo meter mierda
+  // y media cuando re renderiza (cuando le asignamos nuevo modelo)
+  // para formatear mis celdas muajajja
     CeldasCustom miCeldasCustom;//Esta madre esta aqui porque luego le quiero poner
     							//verde por un metodo aparte
     
@@ -92,8 +95,6 @@ public class VenIzq extends JPanel {
 		 DefaultListModel<String> model = new DefaultListModel<String>();
 	        
 		 for(File y : files){
-	        	
-	        	
 	        	
 	        	extension = y.getName();
 	        	

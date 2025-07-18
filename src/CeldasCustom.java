@@ -1,6 +1,8 @@
 
 import java.awt.Color;
 import java.awt.Component;
+
+import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -13,7 +15,13 @@ import javax.swing.ListCellRenderer;
  */
 public class CeldasCustom extends JLabel implements ListCellRenderer<String> {
  
+	public DefaultListModel<String> listaArchivosMain;
+    
+    public DefaultListModel<String> listaArchivosDestino;
+	
     public CeldasCustom() {
+    	listaArchivosMain = new DefaultListModel<String>();
+    	listaArchivosDestino = new DefaultListModel<String>();
         setOpaque(true);
     }
     
@@ -27,13 +35,23 @@ public class CeldasCustom extends JLabel implements ListCellRenderer<String> {
  
  
     	setText(elemento);
-    	
-        if (isSelected) {
-            setBackground(list.getSelectionBackground());
-            setForeground(list.getSelectionForeground());
-        } else {
-            setBackground(list.getBackground());
-            setForeground(list.getForeground());
+    	if(!listaArchivosDestino.contains(elemento)&&listaArchivosMain.contains(elemento)) {
+    		if (isSelected) {
+                setBackground(Color.GREEN);
+                setForeground(Color.BLACK);
+            } else {
+                setBackground(Color.WHITE);
+                setForeground(Color.GREEN);
+            }
+    	}
+    	else {
+	        if (isSelected) {
+	            setBackground(list.getSelectionBackground());
+	            setForeground(list.getSelectionForeground());
+	        } else {
+	            setBackground(list.getBackground());
+	            setForeground(list.getForeground());
+	        }
         }
  
         return this;

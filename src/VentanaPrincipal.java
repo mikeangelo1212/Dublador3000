@@ -71,6 +71,9 @@ public class VentanaPrincipal extends JFrame {
 
 	}
 	
+	
+	//TODO: Hacer un metodo de rerenderizado para que cargue las dos listas con
+	//los cambios al cambiar de folder y saber si existe en ambas carpetas
 	void addVenMidFunciones() {
     	
 		//Agregamos funciones a los botones de la ventana de en medio
@@ -85,6 +88,8 @@ public class VentanaPrincipal extends JFrame {
 					//si esta duplicada o no.
 					if(venMid.recorrerCarpeta(venMid.folderMain)){
 						venIzq.listaArchivosMain.removeAll();
+						//controlamos las celdas desde fuera
+						venIzq.miCeldasCustom.listaArchivosDestino=venIzq.actualizarLista(venMid.folderMain,venMid.archivosMain);
 						venIzq.listaArchivosMain.setModel(venIzq.actualizarLista(venMid.folderMain,venMid.archivosMain));
 						//mete el metodo de abajo arriba pendejo
 				        

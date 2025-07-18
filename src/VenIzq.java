@@ -48,23 +48,23 @@ public class VenIzq extends JPanel {
 		listaArchivosMain.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		
 		
-		listaArchivosDestino.addListSelectionListener(
-				
-			new ListSelectionListener() {
-				@Override
-				public void valueChanged(ListSelectionEvent e) {
-					seleccionarElemento(listaArchivosDestino.getSelectedValue());
-				}
-		});
-		
-		listaArchivosMain.addListSelectionListener(
-				
-				new ListSelectionListener() {
-					@Override
-					public void valueChanged(ListSelectionEvent e) {
-						seleccionarElemento(listaArchivosMain.getSelectedValue());
-					}
-			});
+//		listaArchivosDestino.addListSelectionListener(
+//				
+//			new ListSelectionListener() {
+//				@Override
+//				public void valueChanged(ListSelectionEvent e) {
+//					seleccionarElemento(listaArchivosDestino.getSelectedValue());
+//				}
+//		});
+//		
+//		listaArchivosMain.addListSelectionListener(
+//				
+//				new ListSelectionListener() {
+//					@Override
+//					public void valueChanged(ListSelectionEvent e) {
+//						seleccionarElemento(listaArchivosMain.getSelectedValue());
+//					}
+//			});
 		
 		
 		setBackground(Color.blue);
@@ -135,7 +135,13 @@ public class VenIzq extends JPanel {
 	 * @param string 
 	  */
 	 void seleccionarElemento(String seleccion) {
+//		 listaArchivosDestino.clearSelection();
+//		 listaArchivosMain.clearSelection();
+		 
+		 //TODO: Poner el elemento seleccionado si existe y renderizar
+		 //solo al final de este metodo
 		 System.out.println(seleccion);
+		 //renderizarSeleccion()
 	 }
 	    
 	

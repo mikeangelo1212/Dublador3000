@@ -1,10 +1,16 @@
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.IOException;
 
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 public class VentanaPrincipal extends JFrame {
 	
@@ -20,9 +26,9 @@ public class VentanaPrincipal extends JFrame {
 	
 	
 	
-	VentanaPrincipal(){
+	VentanaPrincipal() throws IOException{
 		setTitle("Dublador 3000, a ver pa cuando lo acabas");
-		setIconImage(getIconImage());
+		setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("img/letsfkinggo.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(1000,500);
 		setLayout(new GridLayout(0,3,5,0));
@@ -33,9 +39,37 @@ public class VentanaPrincipal extends JFrame {
 		add(venIzq);
 		add(venMid);
 		add(venDer);
+		addVenIzqFunciones();
 		addVenMidFunciones();
 	}
 	
+	void addVenIzqFunciones() {
+		venIzq.listaArchivosDestino.addListSelectionListener(
+				
+				new ListSelectionListener() {
+					@Override
+					public void valueChanged(ListSelectionEvent e) {
+						//el !e.getValueIsAdjusting es para que espere a que el metodo
+						//se acabe y haga esto solo una vez
+						if(!e.getValueIsAdjusting()){
+							 venIzq.seleccionarElemento(venIzq.listaArchivosDestino.getSelectedValue());
+					       }
+					}
+			});
+			
+		venIzq.listaArchivosMain.addListSelectionListener(
+					
+					new ListSelectionListener() {
+						@Override
+						public void valueChanged(ListSelectionEvent e) {
+							 if(!e.getValueIsAdjusting()){
+								 venIzq.seleccionarElemento(venIzq.listaArchivosMain.getSelectedValue());
+						       }
+							
+						}
+				});
+
+	}
 	
 	void addVenMidFunciones() {
     	
@@ -102,7 +136,7 @@ public class VentanaPrincipal extends JFrame {
 		
 		venMid.panelMain.btnMicrofono.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				microfonos.listAvailableMicrophones();
+				microfonos.listarMicrofonosDisponibles();
 			}
 		});
 		

@@ -16,6 +16,10 @@ public class CeldasCustom extends JLabel implements ListCellRenderer<String> {
     public CeldasCustom() {
         setOpaque(true);
     }
+    
+    //TODO: Tener copias locales de las listbox y luego preguntar abajo
+    //(Que es donde se agregan) si existen entre los dos para darles
+    //formato custom y marcarlos de verde o rojo o lo que quieras :p
  
     @Override
     public Component getListCellRendererComponent(JList<? extends String> list, String elemento, int index,

@@ -33,7 +33,7 @@ public class CeldasCustom extends JLabel implements ListCellRenderer<String> {
     public Component getListCellRendererComponent(JList<? extends String> list, String elemento, int index,
             boolean isSelected, boolean cellHasFocus) {
  
- 
+    	//xd
     	setText(elemento);
     	if(listaArchivosDestino.contains(elemento)&&listaArchivosMain.contains(elemento)) {
     		if (isSelected) {

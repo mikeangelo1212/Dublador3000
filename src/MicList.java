@@ -24,10 +24,12 @@ public class MicList {
         mixerInfo = AudioSystem.getMixerInfo();
     }
 
+    /**
+	  * Asi como dice, lista los microfonos disponibles
+	  */
     void listarMicrofonosDisponibles() {
         // Iterate through each mixer and see if it supports TargetDataLine
         for (int x = 0; x < mixerInfo.length; x++) {
-
             // Get a temporary instance of the current mixer and ask if
         	// it supports recording
             if (AudioSystem.getMixer(mixerInfo[x]).isLineSupported(targetDLInfo)) {

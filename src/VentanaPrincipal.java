@@ -21,6 +21,7 @@ public class VentanaPrincipal extends JFrame {
 	VenIzq venIzq;
 	VenMid venMid;
 	VenDer venDer;
+	VenMicrofonos venMicro;
 	
 	MicList microfonos = new MicList();
 	
@@ -36,6 +37,7 @@ public class VentanaPrincipal extends JFrame {
 		venIzq = new VenIzq();
 		venMid = new VenMid();
 		venDer = new VenDer();
+		venMicro = new VenMicrofonos();
 		add(venIzq);
 		add(venMid);
 		add(venDer);
@@ -43,6 +45,10 @@ public class VentanaPrincipal extends JFrame {
 		addVenMidFunciones();
 	}
 	
+	/**
+	  * Metodo en el constructor que agrega las funciones de la parte
+	  * izquierda de la ventana principal
+	  */
 	void addVenIzqFunciones() {
 		venIzq.listaArchivosDestino.addListSelectionListener(
 				
@@ -91,6 +97,10 @@ public class VentanaPrincipal extends JFrame {
 		 }
 	 }
 	 
+	 /**
+	  * Renderiza el listbox de la carpeta principal.
+	  * @return boolean Si es que al recorrer nuestra carpeta la encontro valida
+	  */
 	 boolean renderizarMain() {
 		 System.out.println("Trabajando en carpeta principal...");
 		 if(venMid.recorrerCarpeta(venMid.folderMain)){
@@ -105,6 +115,10 @@ public class VentanaPrincipal extends JFrame {
 		 }
 	 }
 	 
+	 /**
+	  * Renderiza el listbox de la carpeta destino.
+	  * @return boolean Si es que al recorrer nuestra carpeta la encontro valida
+	  */
 	 boolean renderizarDestino() {
 		 System.out.println("Trabajando en carpeta destino...");
 		 if(venMid.recorrerCarpeta(venMid.folderDestino)){
@@ -119,8 +133,10 @@ public class VentanaPrincipal extends JFrame {
 		 }
 	 }
 	
-	//TODO: Hacer un metodo de rerenderizado para que cargue las dos listas con
-	//los cambios al cambiar de folder y saber si existe en ambas carpetas
+	 /**
+	  * Metodo en el constructor que agrega las funciones de la parte
+	  * de en medio de la ventana principal
+	  */
 	void addVenMidFunciones() {
     	
 		//Agregamos funciones a los botones de la ventana de en medio
@@ -178,8 +194,10 @@ public class VentanaPrincipal extends JFrame {
 			}
 		});
 		
+		//Boton microfono
 		venMid.panelMain.btnMicrofono.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				//meter esta madre en venMicro
 				microfonos.listarMicrofonosDisponibles();
 			}
 		});

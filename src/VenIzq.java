@@ -44,7 +44,6 @@ public class VenIzq extends JPanel {
 	VenIzq(){
 		miCeldasCustom = new CeldasCustom();
 		listaArchivosMain.setCellRenderer(miCeldasCustom);
-		listaArchivosDestino.setCellRenderer(miCeldasCustom);
 		
 		//pa que no seleccionen mas de uno
 		listaArchivosDestino.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);

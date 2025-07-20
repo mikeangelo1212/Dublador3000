@@ -21,9 +21,9 @@ public class VentanaPrincipal extends JFrame {
 	VenIzq venIzq;
 	VenMid venMid;
 	VenDer venDer;
-	VenMicrofonos venMicro;
+	VenMicrofonos venMicro; 
 	
-	MicList microfonos = new MicList();
+	Microfonos microfonos = new Microfonos();
 	
 	
 	
@@ -124,7 +124,7 @@ public class VentanaPrincipal extends JFrame {
 		 if(venMid.recorrerCarpeta(venMid.folderDestino)){
 				venIzq.listaArchivosDestino.removeAll();
 				venIzq.miCeldasCustom.listaArchivosDestino=venIzq.actualizarLista(venMid.folderDestino,venMid.archivosDestino);
-				System.out.println("Finalizanco en carpeta destino...");
+				System.out.println("Finalizando en carpeta destino...");
 				return true;
 			}
 		 else {
@@ -197,10 +197,23 @@ public class VentanaPrincipal extends JFrame {
 		//Boton microfono
 		venMid.panelMain.btnMicrofono.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//meter esta madre en venMicro
-				microfonos.listarMicrofonosDisponibles();
+				venMicro.dispose();	//cerramos instancia si ya existia y algun pendejo le pica
+									//mas de una vez
+				venMicro.llenarLista(microfonos.listarMicrofonosDisponibles());
+				setEnabled(false);
+				venMicro.setVisible(true);
 			}
 		});
+		
+		//Listener para cuando se cierra la ventana microfono
+		venMicro.addWindowListener(new java.awt.event.WindowAdapter() {
+		    @Override
+		    public void windowClosed(java.awt.event.WindowEvent e) {
+		        setEnabled(true);
+		        toFront(); // optional: bring main window to front
+		    }
+		});
+		
 		
 		//Panel Destino
 		venMid.panelDestino.btnReproducir.addActionListener(new ActionListener() {

@@ -1,15 +1,16 @@
 import javax.sound.sampled.Mixer;
 
-public class MixerCustom extends Mixer.Info {
+public class MixerCustom {
 
-	protected MixerCustom(String name, String vendor, String description, String version) {
-		super(name, vendor, description, version);
-		// TODO Auto-generated constructor stub
+	Mixer.Info mixerInfo;
+	
+	MixerCustom(Mixer.Info info){
+		mixerInfo = info;
 	}
 	
 	//a ver si esto jala
-	public String ToString() {
-		return this.getName();
+	public String toString() {
+		return mixerInfo.getName();
 	}
 
 }

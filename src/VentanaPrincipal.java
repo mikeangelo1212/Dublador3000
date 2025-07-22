@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -23,7 +24,8 @@ public class VentanaPrincipal extends JFrame {
 	VenDer venDer;
 	VenMicrofonos venMicro; 
 	
-	Microfonos microfonos = new Microfonos();
+	Microfonos microfonos;
+	MixerCustom microfonoSeleccionado;
 	
 	
 	
@@ -33,6 +35,9 @@ public class VentanaPrincipal extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(1000,500);
 		setLayout(new GridLayout(0,3,5,0));
+		
+		microfonos = new Microfonos();
+		microfonoSeleccionado =new MixerCustom(null);
 		
 		venIzq = new VenIzq();
 		venMid = new VenMid();
@@ -199,7 +204,23 @@ public class VentanaPrincipal extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				venMicro.dispose();	//cerramos instancia si ya existia y algun pendejo le pica
 									//mas de una vez
-				venMicro.llenarLista(microfonos.listarMicrofonosDisponibles());
+				//iniciamos el metodo y preguntaremos si es diferente de null
+				//o si ya existe para dejarlo seleccionado
+				
+				List<MixerCustom> microsDisponibles = microfonos.listarMicrofonosDisponibles();
+				
+				venMicro.llenarLista(microsDisponibles);
+				
+				if (microfonoSeleccionado!=null) {
+					//el menos 1 es necesario para inicializar desde cero jijiji
+					for (int i=0; i<=microsDisponibles.size()-1;i++) {
+						if(microfonoSeleccionado.equals(microsDisponibles.get(i))) {
+							System.out.println("Microfono identificado en index: "+i);
+						}
+						System.out.println("Pendejo: "+microsDisponibles.get(i));
+						
+					}
+				}
 				setEnabled(false);
 				venMicro.setVisible(true);
 			}
@@ -213,6 +234,26 @@ public class VentanaPrincipal extends JFrame {
 		        toFront(); // optional: bring main window to front
 		    }
 		});
+		
+		
+		//boton aceptar en el micro
+		venMicro.venMicroPanel.btnAceptar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				microfonoSeleccionado =(MixerCustom) venMicro.cbxMicros.getSelectedItem();
+				//no se que carajo es el cast pero me da mi objeto :)
+				System.out.println("Microfono seleccionado: "+microfonoSeleccionado.toString());
+				venMicro.dispose();	//cerramos instancia si ya existia y algun pendejo le pica
+			}
+		});
+		
+		//boton de cancelar micro
+		venMicro.venMicroPanel.btnCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				venMicro.dispose();	//cerramos instancia si ya existia y algun pendejo le pica
+			}
+		});
+		
+		
 		
 		
 		//Panel Destino

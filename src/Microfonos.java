@@ -36,6 +36,9 @@ public class Microfonos {
      * @return mixers Lista de los microfonos validos
 	  */
     List<MixerCustom> listarMicrofonosDisponibles() {
+    	//limpiamos la lista
+    	mixers.clear();
+    	
         // Iterate through each mixer and see xif it supports TargetDataLine
         for (int x = 0; x < mixerInfo.length; x++) {
 
@@ -47,10 +50,5 @@ public class Microfonos {
             }
         }	
         return mixers;
-    }
-    
-    //este metodo creo que deberia ir en la ventana xd
-    void seleccionarMicrofono() {
-    	
     }
 }

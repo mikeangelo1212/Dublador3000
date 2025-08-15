@@ -84,11 +84,21 @@ public class VenIzq extends JPanel {
 	  * @param files arreglo de archivos dentro de la carpeta
 	  * @return modelo que en si es los nombres de los archivos.
 	  */
-	 DefaultListModel<String> actualizarLista(File dir,File[] files){
+			
+	DefaultListModel<String> actualizarListaMain(File dir,File[] files){
 		 
 		 this.folderDir=dir;
-		 System.out.println("Direccion de la carpeta principal actualizada: "+folderDir);
-		 
+		 System.out.println("JList: de la carpeta principal actualizada: "+folderDir);
+		 return actualizarListaProceso(dir,files);    	
+    }
+	
+	DefaultListModel<String> actualizarListaDestino(File dir,File[] files){
+		this.folderDirDestino=dir;
+		 System.out.println("JList: Direccion de la carpeta destino actualizada: "+folderDir);
+		 return actualizarListaProceso(dir,files);  
+	}
+	 
+ 	DefaultListModel<String> actualizarListaProceso(File dir,File[] files){
 		 String extension;
 		 
 		 DefaultListModel<String> model = new DefaultListModel<String>();
@@ -122,21 +132,20 @@ public class VenIzq extends JPanel {
 //	        listaArchivosMain.setModel(model);
 	        
 	        
-	    	
-	    }
-	 /**
-	  * Hacemos algo con la seleccion del item modelo que podemos meter al JList que se necesite
-	 * @param string 
-	  */
-	 void seleccionarElemento(String seleccion) {
-//		 listaArchivosDestino.clearSelection();
-//		 listaArchivosMain.clearSelection();
-		 
-		 //TODO: Poner el elemento seleccionado si existe y renderizar
-		 //solo al final de este metodo
-		 System.out.println(seleccion);
-		 //renderizarSeleccion()
-	 }
+	}
+//	 /**
+//	  * Hacemos algo con la seleccion del item modelo que podemos meter al JList que se necesite
+//	 * @param string 
+//	  */
+//	 void seleccionarElemento(String seleccion) {
+////		 listaArchivosDestino.clearSelection();
+////		 listaArchivosMain.clearSelection();
+//		 
+//		 //TODO: Poner el elemento seleccionado si existe y renderizar
+//		 //solo al final de este metodo
+//		 System.out.println(folderDir+seleccion);
+//		 //renderizarSeleccion()
+//	 }
 	    
 	
 	

@@ -34,6 +34,8 @@ public class CeldasCustom extends JLabel implements ListCellRenderer<String> {
             boolean isSelected, boolean cellHasFocus) {
  
     	//xd
+    	//esto basicamente pregunta que si nuestra chingadera existe en ambas, se pinte verde
+    	//pero ahora no se porq vergas se dejo de pintar los dos
     	setText(elemento);
     	if(listaArchivosDestino.contains(elemento)&&listaArchivosMain.contains(elemento)) {
     		if (isSelected) {

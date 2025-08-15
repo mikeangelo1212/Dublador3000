@@ -1,3 +1,4 @@
+import java.applet.AudioClip;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -8,6 +9,10 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.imageio.ImageIO;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.event.ListSelectionEvent;
@@ -27,6 +32,14 @@ public class VentanaPrincipal extends JFrame {
 	Microfonos microfonos;
 	MixerCustom microfonoSeleccionado;
 	
+	//archivos de audio
+	AudioInputStream audioMain;
+	AudioInputStream audioDestino;
+	
+	//Parece que estos son handlers de audio
+	Clip clipMain;
+	Clip clipDestino;
+	
 	
 	
 	VentanaPrincipal() throws IOException{
@@ -37,7 +50,18 @@ public class VentanaPrincipal extends JFrame {
 		setLayout(new GridLayout(0,3,5,0));
 		
 		microfonos = new Microfonos();
-		microfonoSeleccionado =new MixerCustom(null);
+		microfonoSeleccionado =null;
+		
+		audioMain=null;
+		//https://www.youtube.com/watch?v=wJO_cq5XeSA
+		
+		//handler de audio main
+		try {
+			clipMain = AudioSystem.getClip();
+		} catch (LineUnavailableException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		venIzq = new VenIzq();
 		venMid = new VenMid();
@@ -50,36 +74,10 @@ public class VentanaPrincipal extends JFrame {
 		addVenMidFunciones();
 	}
 	
-	/**
-	  * Metodo en el constructor que agrega las funciones de la parte
-	  * izquierda de la ventana principal
-	  */
-	void addVenIzqFunciones() {
-		venIzq.listaArchivosDestino.addListSelectionListener(
-				
-				new ListSelectionListener() {
-					@Override
-					public void valueChanged(ListSelectionEvent e) {
-						//el !e.getValueIsAdjusting es para que espere a que el metodo
-						//se acabe y haga esto solo una vez
-						if(!e.getValueIsAdjusting()){
-							 venIzq.seleccionarElemento(venIzq.listaArchivosDestino.getSelectedValue());
-					       }
-					}
-			});
-			
-		venIzq.listaArchivosMain.addListSelectionListener(
-					
-					new ListSelectionListener() {
-						@Override
-						public void valueChanged(ListSelectionEvent e) {
-							 if(!e.getValueIsAdjusting()){
-								 venIzq.seleccionarElemento(venIzq.listaArchivosMain.getSelectedValue());
-						       }
-							
-						}
-				});
-
+	
+	void ReproducirAudio() {
+		//TODO Reproducir audio y agregar nombre del archivo
+		return;
 	}
 	
 	/**
@@ -93,12 +91,17 @@ public class VentanaPrincipal extends JFrame {
 		 System.out.println("archivosDestino: " + venMid.archivosDestino);
 		 Boolean main =renderizarMain();
 		 Boolean destino = renderizarDestino();
-		 System.out.println("Renderizando listas...");
+		 
+		 //TODO PORQUE COñO NO SON VERDES LOS DOS JLIST
 		 if (main) {
-			 venIzq.listaArchivosMain.setModel(venIzq.actualizarLista(venMid.folderMain,venMid.archivosMain));
+			 venIzq.listaArchivosMain.setModel(venIzq.actualizarListaMain(venMid.folderMain,venMid.archivosMain));
 		 }
 		 if (destino) {
-			 venIzq.listaArchivosDestino.setModel(venIzq.actualizarLista(venMid.folderDestino,venMid.archivosDestino));
+			 venIzq.listaArchivosDestino.setModel(venIzq.actualizarListaDestino(venMid.folderDestino,venMid.archivosDestino));
+		 }
+		 
+		 if (main || destino) {
+			 System.out.println("Renderizando listas...");
 		 }
 	 }
 	 
@@ -110,7 +113,7 @@ public class VentanaPrincipal extends JFrame {
 		 System.out.println("Trabajando en carpeta principal...");
 		 if(venMid.recorrerCarpeta(venMid.folderMain)){
 				venIzq.listaArchivosMain.removeAll();
-				venIzq.miCeldasCustom.listaArchivosMain=venIzq.actualizarLista(venMid.folderMain,venMid.archivosMain);
+				venIzq.miCeldasCustom.listaArchivosMain=venIzq.actualizarListaMain(venMid.folderMain,venMid.archivosMain);
 				System.out.println("Finalizando en carpeta principal...");
 				return true;
 			}
@@ -128,7 +131,7 @@ public class VentanaPrincipal extends JFrame {
 		 System.out.println("Trabajando en carpeta destino...");
 		 if(venMid.recorrerCarpeta(venMid.folderDestino)){
 				venIzq.listaArchivosDestino.removeAll();
-				venIzq.miCeldasCustom.listaArchivosDestino=venIzq.actualizarLista(venMid.folderDestino,venMid.archivosDestino);
+				venIzq.miCeldasCustom.listaArchivosDestino=venIzq.actualizarListaDestino(venMid.folderDestino,venMid.archivosDestino);
 				System.out.println("Finalizando en carpeta destino...");
 				return true;
 			}
@@ -137,6 +140,40 @@ public class VentanaPrincipal extends JFrame {
 			 return false;
 		 }
 	 }
+	
+	/**
+	  * Metodo en el constructor que agrega las funciones de la parte
+	  * izquierda de la ventana principal
+	  */
+	void addVenIzqFunciones() {
+		venIzq.listaArchivosDestino.addListSelectionListener(
+				
+				new ListSelectionListener() {
+					@Override
+					public void valueChanged(ListSelectionEvent e) {
+						//el !e.getValueIsAdjusting es para que espere a que el metodo
+						//se acabe y haga esto solo una vez
+						if(!e.getValueIsAdjusting()){
+							 System.out.println(venIzq.folderDirDestino + venIzq.listaArchivosDestino.getSelectedValue());
+					       }
+						
+					}
+			});
+			
+		venIzq.listaArchivosMain.addListSelectionListener(
+					
+					new ListSelectionListener() {
+						@Override
+						public void valueChanged(ListSelectionEvent e) {
+							 if(!e.getValueIsAdjusting()){
+								 System.out.println(venIzq.folderDir + venIzq.listaArchivosMain.getSelectedValue());
+						       }
+							
+						}
+				});
+
+	}
+	
 	
 	 /**
 	  * Metodo en el constructor que agrega las funciones de la parte
@@ -191,6 +228,7 @@ public class VentanaPrincipal extends JFrame {
 		venMid.panelMain.btnReproducir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (!venMid.panelMain.reproduciendo) {
+					clipMain.open();
 					venMid.panelMain.Reproducir();
 				}
 				else {
@@ -212,12 +250,16 @@ public class VentanaPrincipal extends JFrame {
 				venMicro.llenarLista(microsDisponibles);
 				
 				if (microfonoSeleccionado!=null) {
+					//TODO Se ejecuta este metodo dos veces al parecer, validar
+					
 					//el menos 1 es necesario para inicializar desde cero jijiji
+					//TODO Validar esto si queremos que se autoseleccione, sino alv
 					for (int i=0; i<=microsDisponibles.size()-1;i++) {
-						if(microfonoSeleccionado.equals(microsDisponibles.get(i))) {
+						System.out.println("Preguntas pendejas llevadas a cabo");
+						if(microfonoSeleccionado.mixerInfo.equals(microsDisponibles.get(i))) {
 							System.out.println("Microfono identificado en index: "+i);
 						}
-						System.out.println("Pendejo: "+microsDisponibles.get(i));
+						System.out.println("Microfono encontrado: "+microsDisponibles.get(i));
 						
 					}
 				}
@@ -230,7 +272,13 @@ public class VentanaPrincipal extends JFrame {
 		venMicro.addWindowListener(new java.awt.event.WindowAdapter() {
 		    @Override
 		    public void windowClosed(java.awt.event.WindowEvent e) {
-		        setEnabled(true);
+		        if (microfonoSeleccionado!=null) {
+		        	System.out.println("Microfono seleccionado actualmente: "+microfonoSeleccionado.mixerInfo);
+		        }
+		        else {
+		        	System.out.println("Microfono sin seleccionar");
+		        }
+		    	setEnabled(true);
 		        toFront(); // optional: bring main window to front
 		    }
 		});

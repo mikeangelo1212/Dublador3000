@@ -42,7 +42,7 @@ public class VenMicrofonos extends JFrame {
 	//TODO: Importante, porque vergas esto no jala
 	//no se limpia la lista al parecer, y no entiendo porq
 	void llenarLista(List<MixerCustom> mixerCustoms) {
-		System.out.println("Llenando lista de microfoos disponibles");
+		System.out.println("Llenando lista de microfonos disponibles");
 		cbxMicros.removeAllItems();
 		revalidate();
 		repaint();
